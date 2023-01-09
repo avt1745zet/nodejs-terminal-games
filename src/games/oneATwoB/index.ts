@@ -26,7 +26,8 @@ export default class OneATwoB extends Game {
 	}
 
 	public start(): void {
-		console.clear();
+		process.stdout.cursorTo(0, 0);
+		process.stdout.clearScreenDown();
 		this.readline = Readline.createInterface({
 			input: process.stdin,
 			output: process.stdout
@@ -107,7 +108,8 @@ export default class OneATwoB extends Game {
 	}
 
 	protected renderWinMenu(selectIndex: number): void {
-		console.clear();
+		process.stdout.cursorTo(0, 0);
+		process.stdout.clearScreenDown();
 		process.stdout.write(`Congratulation! Answer is ${this.answer}, You guess ${this.guessCount} times!\n`);
 		for (let i: number = 0; i < this.winMenuOptions.length; i++) {
 			if (i === selectIndex) {
