@@ -8,7 +8,7 @@ export default class OneATwoB extends Game {
 		return "1A2B";
 	}
 
-	protected readline: Readline.Interface;
+	protected readline!: Readline.Interface;
 	protected answer: string;
 	protected guessCount: number;
 
@@ -16,21 +16,21 @@ export default class OneATwoB extends Game {
 
 	protected winMenuOptions: Array<IMenuItem> = [
 		{ name: "Play again", callback: () => { this.start(); } },
-		{ name: "Return main menu", callback: () => { MainMenu.instance.init(); } }
+		{ name: "Return main menu", callback: () => { MainMenu.instance.show(); } }
 	];
 
 	constructor() {
 		super();
-		this.readline = Readline.createInterface({
-			input: process.stdin,
-			output: process.stdout
-		});
 		this.answer = "";
 		this.guessCount = 0;
 	}
 
 	public start(): void {
 		console.clear();
+		this.readline = Readline.createInterface({
+			input: process.stdin,
+			output: process.stdout
+		});
 		this.answer = this.generateRandomAnswer();
 		this.guessCount = 0;
 		this.question();
@@ -93,6 +93,7 @@ export default class OneATwoB extends Game {
 					this.renderWinMenu(currentSelectIndex);
 					break;
 				case "return":
+					this.readline.close();
 					process.stdin.off("keypress", listener);
 					this.winMenuOptions[currentSelectIndex].callback();
 					break;
